@@ -3,6 +3,7 @@ const nextConfig = {
   env: {
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   },
+  // This is a workaround for the issue: https://github.com/aws-amplify/amplify-js/issues/11030
   webpack: (config, { webpack, isServer, nextRuntime }) => {
     if (isServer && nextRuntime === "nodejs") {
       config.plugins.push(
