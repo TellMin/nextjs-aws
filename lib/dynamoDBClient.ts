@@ -1,3 +1,4 @@
+import { User } from "@/types";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   DynamoDBDocumentClient,
@@ -17,12 +18,11 @@ const dbClient = (): DynamoDBClient => {
   return DynamoDBDocumentClient.from(client);
 };
 
-export const createNewUser = async (userId: string) => {
+export const createNewUser = async (user: User) => {
   const command = new PutCommand({
     TableName: "nextjs-aws",
     Item: {
-      id: userId,
-      createDate: new Date().toISOString(),
+      ...user,
     },
   });
 
