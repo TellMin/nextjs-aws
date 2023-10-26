@@ -1,6 +1,7 @@
 "use client";
 
 import useSession from "@/hooks/useSession";
+import { signOut } from "next-auth/react";
 
 const Header = () => {
   const { data: session, status } = useSession();
@@ -13,6 +14,9 @@ const Header = () => {
     <div>
       Welcome
       <span className="font-bold"> {user}</span>
+      <div>
+        <button onClick={() => signOut()}>Sign out</button>
+      </div>
     </div>
   );
 };

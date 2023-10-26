@@ -32,6 +32,26 @@ const handler = NextAuth({
         },
       };
     },
+    redirect: async ({ url, baseUrl }) => {
+      // Sign out from OAuth provider (Cognito)
+      // call `signOut({ callbackUrl: "signOut" });` then this callback called
+      // https://github.com/nextauthjs/next-auth/discussions/3938#discussioncomment-2231398
+      if (url.startsWith(baseUrl)) return url;
+      if (url === "signOut" && process.env.COGNITO_LOGOUT_ENDPOINT_URL) {
+        // Sign out from auth provider
+        const logoutEndpointUrl = process.env.COGNITO_LOGOUT_ENDPOINT_URL || "";
+        const params = new URLSearchParams({
+          client_id: process.env.COGNITO_CLIENT_ID || "",
+          redirect_uri: `${process.env.NEXTAUTH_URL}/api/auth/callback/cognito`,
+          response_type: "code",
+        });
+        return `${logoutEndpointUrl}?${params.toString()}`;
+      }
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return new URL(url, baseUrl).toString();
+      // Redirect to root when the redirect URL is still an external domain
+      return baseUrl;
+    },
   },
 });
 
