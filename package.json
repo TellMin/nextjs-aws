@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.431.0",
+    "@aws-sdk/lib-dynamodb": "^3.431.0",
+    "@aws-sdk/util-dynamodb": "^3.431.0",
     "next": "13.5.4",
     "next-auth": "^4.23.2",
     "react": "^18",
