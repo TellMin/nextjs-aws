@@ -15,7 +15,9 @@ const Header = () => {
       Welcome
       <span className="font-bold"> {user}</span>
       <div>
-        <button onClick={() => signOut()}>Sign out</button>
+        <button onClick={() => signOut({ callbackUrl: "api/auth/signOut" })}>
+          Sign out
+        </button>
       </div>
     </div>
   );

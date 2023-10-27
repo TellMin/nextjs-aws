@@ -39,6 +39,8 @@ const handler = NextAuth({
       if (url.startsWith(baseUrl)) return url;
       if (url === "signOut" && process.env.COGNITO_LOGOUT_ENDPOINT_URL) {
         // Sign out from auth provider
+        console.log("signOut");
+
         const logoutEndpointUrl = process.env.COGNITO_LOGOUT_ENDPOINT_URL || "";
         const params = new URLSearchParams({
           client_id: process.env.COGNITO_CLIENT_ID || "",
